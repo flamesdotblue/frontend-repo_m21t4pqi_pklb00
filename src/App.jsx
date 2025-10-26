@@ -3,6 +3,7 @@ import DollCanvas from './components/DollCanvas.jsx';
 import Wardrobe from './components/Wardrobe.jsx';
 import JewelBox from './components/JewelBox.jsx';
 import MakeupPalette from './components/MakeupPalette.jsx';
+import ScenePicker from './components/ScenePicker.jsx';
 import { Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -10,11 +11,12 @@ export default function App() {
   const [dress, setDress] = useState({ id: 'rose', name: 'Rose Gala', color: '#FF6AA2', accent: '#FFD1E8' });
   const [jewels, setJewels] = useState({ earrings: true, necklace: true, tiara: false, gemColor: '#A78BFA', metal: 'gold' });
   const [makeup, setMakeup] = useState({ lip: '#E2557E', blush: '#FDB7C8', eye: '#7AA5FF' });
+  const [scene, setScene] = useState('runway');
 
   const headerSubtitle = useMemo(() => {
-    const bits = [dress?.name, jewels?.metal === 'gold' ? 'Golden set' : 'Silver set'];
+    const bits = [dress?.name, jewels?.metal === 'gold' ? 'Golden set' : 'Silver set', `Scene: ${scene}`];
     return bits.filter(Boolean).join(' · ');
-  }, [dress, jewels]);
+  }, [dress, jewels, scene]);
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-rose-50 via-pink-50 to-fuchsia-50 text-gray-900">
@@ -37,6 +39,7 @@ export default function App() {
                 setDress({ id: 'rose', name: 'Rose Gala', color: '#FF6AA2', accent: '#FFD1E8' });
                 setJewels({ earrings: true, necklace: true, tiara: false, gemColor: '#A78BFA', metal: 'gold' });
                 setMakeup({ lip: '#E2557E', blush: '#FDB7C8', eye: '#7AA5FF' });
+                setScene('runway');
               }}
               className="rounded-full bg-gray-900 text-white text-xs px-3 py-1.5 shadow hover:opacity-95"
             >
@@ -57,7 +60,7 @@ export default function App() {
             className="lg:col-span-3 rounded-3xl bg-white/60 backdrop-blur-xl ring-1 ring-black/5 p-4 sm:p-6"
           >
             <div className="aspect-[3/4] w-full">
-              <DollCanvas dress={dress} jewels={jewels} makeup={makeup} />
+              <DollCanvas dress={dress} jewels={jewels} makeup={makeup} scene={scene} />
             </div>
           </motion.section>
 
@@ -70,6 +73,15 @@ export default function App() {
               className="rounded-3xl bg-white/70 backdrop-blur-xl p-4 sm:p-6 ring-1 ring-black/5"
             >
               <Wardrobe selectedId={dress?.id} onSelect={setDress} />
+            </motion.section>
+
+            <motion.section
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.08, duration: 0.4 }}
+              className="rounded-3xl bg-white/70 backdrop-blur-xl p-4 sm:p-6 ring-1 ring-black/5"
+            >
+              <ScenePicker value={scene} onChange={setScene} />
             </motion.section>
 
             <motion.section
@@ -99,6 +111,7 @@ export default function App() {
               setDress({ id: 'rose', name: 'Rose Gala', color: '#FF6AA2', accent: '#FFD1E8' });
               setJewels({ earrings: true, necklace: true, tiara: false, gemColor: '#A78BFA', metal: 'gold' });
               setMakeup({ lip: '#E2557E', blush: '#FDB7C8', eye: '#7AA5FF' });
+              setScene('runway');
             }}
             className="rounded-full bg-gray-900 text-white text-xs px-4 py-2 shadow"
           >
@@ -109,7 +122,7 @@ export default function App() {
 
       {/* Footer */}
       <footer className="py-8">
-        <p className="text-center text-xs text-gray-500">Inspired by Apple’s clean UI principles · Delightful interactions with subtle depth and glass</p>
+        <p className="text-center text-xs text-gray-500">Inspired by Apple’s clean UI principles · Scenes, sparkles, and glossy details for a more beautiful Barbie</p>
       </footer>
     </div>
   );

@@ -2,12 +2,12 @@ import React from 'react';
 import { Diamond, Star } from 'lucide-react';
 
 const COLORS = [
-  '#A78BFA', // violet
-  '#F472B6', // pink
-  '#60A5FA', // blue
-  '#34D399', // green
-  '#F59E0B', // amber
-  '#F97316', // orange
+  '#A78BFA',
+  '#F472B6',
+  '#60A5FA',
+  '#34D399',
+  '#F59E0B',
+  '#F97316',
 ];
 
 export default function JewelBox({ jewels, onChange }) {
@@ -78,6 +78,10 @@ export default function JewelBox({ jewels, onChange }) {
             />
           ))}
         </div>
+      </div>
+
+      <div className="rounded-2xl bg-gradient-to-br from-white to-rose-50 p-3 ring-1 ring-black/5">
+        <p className="text-[11px] text-gray-600">Tip: Mix metals for a fashion-forward look. Try silver tiara with golden earrings!</p>
       </div>
     </div>
   );
